@@ -34,7 +34,7 @@ public class membreDao {
  }
 
     }
-    public List<Membre> get_membre(){
+    public List<Membre> get_allmembre(){
         List<Membre> memberlist=new ArrayList<>();
         String sql = "select * from membre";
         try(PreparedStatement ps=con.prepareStatement(sql); ResultSet rs= ps.executeQuery()){
