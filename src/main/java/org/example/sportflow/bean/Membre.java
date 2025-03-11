@@ -6,6 +6,9 @@ public class Membre extends User{
     private String datenaissance;
     private String Sport;
 
+    public Membre() {
+    }
+
     public Membre(int user_id, String role, int m_id, String name, String datenaissance, String sport) {
         super(user_id, role);
         M_id = m_id;
