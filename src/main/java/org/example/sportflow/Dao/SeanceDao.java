@@ -16,4 +16,5 @@ public class SeanceDao {
             System.out.println("Failed to connect to database");;
         }
     }
+
 }

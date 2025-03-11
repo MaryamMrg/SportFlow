@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class membreDao {
+public class MembreDao {
     private Connection con;
-    public membreDao() {
+    public MembreDao() {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con= DriverManager.getConnection("jdbc:mysql://localhost:3306/sportflow","root","");
