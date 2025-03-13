@@ -17,6 +17,12 @@ public class Membre extends User{
         Sport = sport;
     }
 
+    public Membre(String name, String datenaissance, String sport) {
+        this.name = name;
+        this.datenaissance = datenaissance;
+        this.Sport = sport;
+    }
+
     public int getM_id() {
         return M_id;
     }

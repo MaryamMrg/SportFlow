@@ -1,4 +1,6 @@
 package org.example.sportflow.Servlet;
 
-public class UserServlet {
+import jakarta.servlet.http.HttpServlet;
+
+public class UserServlet extends HttpServlet {
 }

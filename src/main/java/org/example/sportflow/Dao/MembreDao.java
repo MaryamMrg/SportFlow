@@ -23,46 +23,49 @@ public class MembreDao {
         }
     }
  public  void add_membre (Membre membre){
-        String sql = "insert int membre(id_M,name,datenaissance,sport) values(?,?,?,?)";
+        String sql = "insert into membre(name,date_naissance,sport_pratique) values(?,?,?)";
  try(PreparedStatement ps=con.prepareStatement(sql)){
-     ps.setInt(1,membre.getUser_id());
-     ps.setString(2,membre.getName());
-     ps.setString(3,membre.getDatenaissance());
-     ps.setString(4,membre.getSport());
+
+     ps.setString(1,membre.getName());
+     ps.setString(2,membre.getDatenaissance());
+     ps.setString(3,membre.getSport());
+     ps.executeUpdate();
  } catch (Exception e) {
      e.printStackTrace();
  }
 
     }
     public List<Membre> get_allmembre(){
-        List<Membre> memberlist=new ArrayList<>();
+        System.out.println("hhhhhh");
+        List<Membre> membrelist=new ArrayList<>();
         String sql = "select * from membre";
         try(PreparedStatement ps=con.prepareStatement(sql); ResultSet rs= ps.executeQuery()){
             while (rs.next()){
                 Membre membre =new Membre();
-                membre.setM_id(rs.getInt("M_id"));
+                membre.setM_id(rs.getInt("id_M"));
                 membre.setName(rs.getString("name"));
-                membre.setDatenaissance(rs.getString("datenaissance"));
-                membre.setSport(rs.getString("sport"));
-                memberlist.add(membre);
+                membre.setDatenaissance(rs.getString("date_naissance"));
+                membre.setSport(rs.getString("sport_pratique"));
+                membrelist.add(membre);
+                System.out.println("kkkk");
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return memberlist;
+        return membrelist;
     }
     public Membre getmembreById(int M_id){
         Membre membre=null;
-        String sql = "select * from membre where M_id=?";
+        String sql = "select * from membre where id_M=?";
         try(PreparedStatement prest = con.prepareStatement(sql)) {
             prest.setInt(1, M_id);
             try (ResultSet res = prest.executeQuery()){
                 if (res.next()) {
                     membre = new Membre();
-                    membre.setM_id(res.getInt("M_id"));
+                    membre.setM_id(res.getInt("id_M"));
                     membre.setName(res.getString("name"));
-                    membre.setDatenaissance(res.getString("datenaissance"));
-                    membre.setSport(res.getString("sport"));
+                    membre.setDatenaissance(res.getString("date_naissance"));
+                    membre.setSport(res.getString("sport_pratique"));
 
 
 
@@ -78,19 +81,22 @@ public class MembreDao {
         return membre;
     }
     public void modify_membre(Membre membre){
-        String sql = "update membre set name=?,sport=?, datenaissance =? where M_id=?";
+        System.out.println("mmmmmmmmmmmmmmm");
+        String sql = "UPDATE membre SET name=?, sport_pratique=?, date_naissance=? WHERE id_M=?";
         try(PreparedStatement ps=con.prepareStatement(sql)){
            ps.setString(1, membre.getName());
            ps.setString(2, membre.getSport());
            ps.setString(3, membre.getDatenaissance());
            ps.setInt(4, membre.getM_id());
+           ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
     public void delete_membre(int M_id){
-        String sql = "delete from membre where M_id=?";
+        System.out.println("dddddddddd");
+        String sql = "delete from membre where id_M=?";
         try(PreparedStatement ps=con.prepareStatement(sql)) {
             ps.setInt(1, M_id);
             ps.executeUpdate();

@@ -11,7 +11,7 @@ import org.example.sportflow.bean.Membre;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/Membre")
+@WebServlet("/MembreServlet")
 public class MembreServlet extends HttpServlet {
 
 private MembreDao mdao;
@@ -24,17 +24,16 @@ private MembreDao mdao;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action=req.getParameter("action");
-        if(action==null){
-
-        } else if ("delete".equals(action)) {
-            int id=Integer.parseInt(req.getParameter("M_id"));
+        System.out.println("ACTION:"+action);
+         if ("delete".equals(action)) {
+            int id=Integer.parseInt(req.getParameter("id_M"));
             mdao.delete_membre(id);
-            resp.sendRedirect(req.getContextPath()+"/Membre");
+            resp.sendRedirect(req.getContextPath()+"/MembreServlet");
         } else if ("update".equals(action)) {
-            int id=Integer.parseInt(req.getParameter("M_id"));
+            int id=Integer.parseInt(req.getParameter("id_M"));
             Membre membre= mdao.getmembreById(id);
             req.setAttribute("membre",membre);
-            req.getRequestDispatcher("MembreUpdate.jsp").forward(req,resp);
+            req.getRequestDispatcher("UpdateMembre.jsp").forward(req,resp);
 
         }else {
             List<Membre> membrelist= mdao.get_allmembre();
@@ -46,22 +45,24 @@ private MembreDao mdao;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
              String action=req.getParameter("action");
-             if(action==null){}
-             else if ("update".equals(action)) {
-                 int id=Integer.parseInt(req.getParameter("M_id"));
+        System.out.println("ACTION:"+action);
+              if ("update".equals(action)) {
+
+                 int id=Integer.parseInt(req.getParameter("id_M"));
                  String name =req.getParameter("name");
-                 String datenaissance=req.getParameter("datenaissance");
-                 String sport=req.getParameter("sport");
-                 Membre membre =new Membre();
+                 String datenaissance=req.getParameter("date_naissance");
+                 String sport=req.getParameter("sport_pratique");
+                 Membre membre =new Membre(name,datenaissance,sport);
                  membre.setM_id(id);
+
                  mdao.modify_membre(membre);
              }else{
                  String name=req.getParameter("name");
-                 String datenaissance=req.getParameter("datenaissance");
-                 String sport=req.getParameter("sport");
-                 Membre membre =new Membre();
+                 String datenaissance =req.getParameter("date_naissance");
+                 String sport=req.getParameter("sport_pratique");
+                 Membre membre =new Membre(name,datenaissance,sport);
                  mdao.add_membre(membre);
              }
-      resp.sendRedirect(req.getContextPath()+"/Membre");
+      resp.sendRedirect(req.getContextPath()+"/MembreServlet");
     }
 }

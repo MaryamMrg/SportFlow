@@ -15,6 +15,11 @@ public class Entraineur extends User{
     public Entraineur() {
     }
 
+    public Entraineur(String name, String specialite) {
+        this.name = name;
+        this.Specialite = specialite;
+    }
+
     public int getE_id() {
         return E_id;
     }
